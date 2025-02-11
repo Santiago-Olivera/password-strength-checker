@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import evaluate_password, is_common_password
+from utils import evaluate_password, is_common_password, check_password_breach
 
 st.title("🔐 Password Strength Checker")
 st.write("Enter a password to evaluate its security.")
@@ -8,7 +8,13 @@ password = st.text_input("🔑 Enter your password:", type="password")
 
 if password:
     if is_common_password(password):
-        st.error("🚨 Your password is **too common**! Consider using a more unique and secure password.")
+        st.error("🚨 Your password is **too common**! Choose a more secure password.")
+
+    breach_message = check_password_breach(password)
+    if "leaked" in breach_message:
+        st.error(breach_message)
+    else:
+        st.success(breach_message)
 
     score, criteria = evaluate_password(password)
     
