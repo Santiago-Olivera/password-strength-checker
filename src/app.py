@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import evaluate_password, is_common_password, check_password_breach
+from utils import evaluate_password, is_common_password, check_password_breach, calculate_entropy
 
 st.title("🔐 Password Strength Checker")
 st.write("Enter a password to evaluate its security.")
@@ -15,6 +15,12 @@ if password:
         st.error(breach_message)
     else:
         st.success(breach_message)
+
+    entropy, entropy_feedback = calculate_entropy(password)
+    
+    st.subheader("📊 Entropy Calculation")
+    st.write(f"**Entropy Score:** `{entropy}` bits")
+    st.write(entropy_feedback)
 
     score, criteria = evaluate_password(password)
     
