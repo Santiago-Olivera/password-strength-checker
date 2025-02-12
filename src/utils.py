@@ -1,6 +1,8 @@
 import re
 import hashlib
 import requests
+import math
+import string
 
 def evaluate_password(password):
     """Evaluates password strength based on length, uppercase, lowercase, numbers, and special characters."""
@@ -49,3 +51,33 @@ def check_password_breach(password):
     return "✅ Your password has not been found in breaches."
 
 
+def calculate_entropy(password):
+    """Calculates password entropy based on its length and character diversity."""
+    if not password:
+        return 0, "⚠️ Password is empty."
+
+    charset_size = 0
+    if any(c.islower() for c in password):
+        charset_size += 26
+    if any(c.isupper() for c in password):
+        charset_size += 26
+    if any(c.isdigit() for c in password):
+        charset_size += 10
+    if any(c in string.punctuation for c in password):
+        charset_size += len(string.punctuation)
+
+    entropy = len(password) * math.log2(charset_size)
+
+    # Provide feedback
+    if entropy < 28:
+        strength = "❌ Very Weak (Easy to crack)"
+    elif entropy < 36:
+        strength = "⚠️ Weak (Crackable in seconds)"
+    elif entropy < 60:
+        strength = "🔸 Moderate (Better, but still risky)"
+    elif entropy < 80:
+        strength = "✅ Strong (Difficult to crack)"
+    else:
+        strength = "💪 Very Strong (Highly secure)"
+
+    return round(entropy, 2), strength
