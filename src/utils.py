@@ -30,8 +30,6 @@ def is_common_password(password):
     }
     return password in common_passwords
 
-
-
 def check_password_breach(password):
     """Checks if the password has been exposed in data breaches using Have I Been Pwned API."""
     sha1_hash = hashlib.sha1(password.encode()).hexdigest().upper()
@@ -49,7 +47,6 @@ def check_password_breach(password):
             return f"⚠️ Your password has been leaked **{count} times**! Consider using a different one."
 
     return "✅ Your password has not been found in breaches."
-
 
 def calculate_entropy(password):
     """Calculates password entropy based on its length and character diversity."""
@@ -81,3 +78,26 @@ def calculate_entropy(password):
         strength = "💪 Very Strong (Highly secure)"
 
     return round(entropy, 2), strength
+
+def provide_password_feedback(password):
+    """Provides detailed feedback on how to improve password security."""
+    feedback = []
+    
+    if len(password) < 12:
+        feedback.append("🔹 Consider using **at least 12 characters** for better security.")
+    if not any(c.isupper() for c in password):
+        feedback.append("🔹 Add **uppercase letters** to strengthen your password.")
+    if not any(c.islower() for c in password):
+        feedback.append("🔹 Include **lowercase letters** for a more diverse character set.")
+    if not any(c.isdigit() for c in password):
+        feedback.append("🔹 Use **numbers** to increase complexity.")
+    if not any(c in string.punctuation for c in password):
+        feedback.append("🔹 Add **special characters** (e.g., @, #, $) to make it harder to guess.")
+    if is_common_password(password):
+        feedback.append("🚨 Avoid using **common passwords** that attackers can easily guess.")
+    if "leaked" in check_password_breach(password):
+        feedback.append("⚠️ This password has been found in breaches! **Change it immediately.**")
+    
+    if not feedback:
+        return "✅ Your password meets **all** recommended security criteria!"
+    return feedback
