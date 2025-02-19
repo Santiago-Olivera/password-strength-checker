@@ -20,3 +20,5 @@ Weak passwords are a major security risk! This tool helps users create strong, u
 🔹 Built with Python & Streamlit for a fast and interactive experience.
 
 ### For further details on each of the features and the project setup please refer to the wiki documentation
+
+### to see a little demo of the app : https://youtu.be/Nxr06ijvjdo
