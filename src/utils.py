@@ -99,5 +99,5 @@ def provide_password_feedback(password):
         feedback.append("⚠️ This password has been found in breaches! **Change it immediately.**")
     
     if not feedback:
-        return "✅ Your password meets **all** recommended security criteria!"
+        feedback.append("✅ Your password meets **all** recommended security criteria!")
     return feedback
