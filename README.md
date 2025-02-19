@@ -18,3 +18,5 @@ A password strength checker built with Streamlit . This tool evaluates password 
 Weak passwords are a major security risk! This tool helps users create strong, unique passwords that stand up to attacks.
 
 🔹 Built with Python & Streamlit for a fast and interactive experience.
+
+### For further details on each of the features and the project setup please refer to the wiki documentation
